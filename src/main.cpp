@@ -1,21 +1,23 @@
 #include <mbed.h>
 
-DigitalOut blue(LED_BLUE);
+DigitalOut green(LED_GREEN);
+void  on(void) { green.write(0); }
+void off(void) { green.write(1); }
 
 Ticker  pit;
+unsigned int period = 100;
+unsigned int duration = 10;
+void centisecond(void) {
+   static unsigned int cs=0;
+   cs = (cs+1) % period ;
 
-void flash(void) {
-   static unsigned int phase=0;
-
-   if(phase==0) blue.write(0); /* on */
-   if(phase==1) blue.write(1); /* off */
-
-   phase++;
-   if(phase==3) phase=0;
+   if( cs<duration )  on();
+   else              off();
 }
 
 int main(void) {
-  
-  pit.attach(timer,0.5);
-  while(1);
+  pit.attach_us(centisecond, 10000);
+
+  while(1) {}
+
 }
