@@ -5,8 +5,8 @@ void  on(void) { green.write(0); }
 void off(void) { green.write(1); }
 
 Ticker  pit;
-unsigned int period = 100;
-unsigned int duration = 10;
+unsigned int period = 10; //this is the time between flashes
+unsigned int duration = 5; //this is how long the led is on for 
 void centisecond(void) {
    static unsigned int cs=0;
    cs = (cs+1) % period ;
